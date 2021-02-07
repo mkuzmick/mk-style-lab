@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box } from 'theme-ui'
+import { jsx, Box, Embed } from 'theme-ui'
 
 import Card from "./card"
 import Layout from "./layout"
@@ -105,7 +105,8 @@ export default () => {
                     sx={{
                         height: "200vh",
                         textAlign: "left",
-                        width: "100%"
+                        width: "100%",
+                        paddingLeft: "2em"
                     }}
                 >
                      <p
@@ -114,6 +115,8 @@ export default () => {
                         }}
                      >other stuff will go down here.</p>
                 </div>
+                <Embed src="https://www.youtube.com/embed/0RONImrGtZE" />
+
             </FlexContainer>
         </Layout>
     )
