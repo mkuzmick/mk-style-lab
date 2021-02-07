@@ -6,29 +6,22 @@ just another daily gatsby site
 
 to make this project.
 
-### STARTING UP A GATSBY PROJECT
-
-There are many ways to get going. Here is a simple script we've been using in January 2021:
-
 ```
-#! /usr/bin/env zsh
-
-PROJECT_NAME=$1
-gatsby new $PROJECT_NAME $2
-DATA_STRING="{\"name\":\"$PROJECT_NAME\",\"private\":false}"
-curl -u "mkuzmick:$GITHUB_TOKEN" https://api.github.com/user/repos -d $DATA_STRING
-code $PROJECT_NAME
-cd $PROJECT_NAME
-git remote add origin "https://github.com/mkuzmick/$PROJECT_NAME.git"
-git branch -M main
-git push -u origin main
-open -a "Firefox Developer Edition" "http://localhost:8000"
-open -a "Firefox Developer Edition" "http://localhost:8000/___graphql"
+gatsby new mk-style-lab
+cd mk-style-lab
 gatsby develop
 ```
 
-- it should be running. If you want, host it on Netlify by signing in with Github and connecting a new site to your new Github repo.
-- also don't forget to add new metadata to `gatsby-config.js`:
+connect to github if desired
+
+```
+git remote add origin "https://github.com/mkuzmick/mk-style-lab.git"
+git branch -M main
+git push -u origin main
+```
+
+it should be running. If you want, host it on Netlify by signing in with Github and connecting a new site to your new Github repo.
+also don't forget to add new metadata to `gatsby-config.js`:
   ```
   siteMetadata: {
       title: `MK Gatsby`,
@@ -37,16 +30,16 @@ gatsby develop
     },
   ```
 
-### INSTALL MDX PLUGIN
+delete all the gatsby stuff in components and pages and start from scratch (just remember to add back in an `index.js` and a `404.js`)
 
-One option is to JUST install the mdx plugin and have it handle both `.md` and `.mdx` files.
-
-- install the [gatsby-plugin-mdx](https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/?=mdx) and [gatsby-remark-images](https://www.gatsbyjs.com/plugins/gatsby-remark-images/?=remark%20images) plugins:
+Then install MDX and theme-ui . . . 
+/www.gatsbyjs.com/plugins/gatsby-remark-images/?=remark%20images) plugins:
   ```
-  npm install gatsby-remark-images gatsby-plugin-sharp gatsby-plugin-mdx @mdx-js/mdx @mdx-js/react
+  npm install gatsby-remark-images gatsby-plugin-sharp gatsby-plugin-mdx @mdx-js/mdx @mdx-js/react 
+  npm install theme-ui @theme-ui/presets gatsby-plugin-theme-ui normalize.css
   ```
 
-* in `gatsby-config.js`, add the `gatsby-remark-images` plugin and the `gatsby-plugin-mdx` (also adding the `gatsby-remark-images` plugin _within_ the `gatsby-plugin-mdx` object too). If you want the `mdx` plugin to handle `.md` file extensions too, add a line to options specifying that:
+in `gatsby-config.js`, add the `gatsby-remark-images` plugin and the `gatsby-plugin-mdx` (also adding the `gatsby-remark-images` plugin _within_ the `gatsby-plugin-mdx` object too). If you want the `mdx` plugin to handle `.md` file extensions too, add a line to options specifying that:
   ```
   `gatsby-remark-images`,
   {
@@ -68,80 +61,50 @@ One option is to JUST install the mdx plugin and have it handle both `.md` and `
     ],
   },
   ```
-  We'll get in to layouts in a later step, so it's fine to have them commented out for now. But one thing to note is that the keys other thand `default` there (`resources` in this case) come from the `gatsby-source-filesystem` chunks of your `gatsby-config.js`. See [here](https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/#default-layouts) in the Gatsby docs for more info.
 
-- if you restart the dev server (ctrl+C then `gatsby develop` again), you should be able to now see any mdx pages you have in `src/pages`. If you don't have one, create a quick one
-  ```
-  echo "# THIS IS MDX\nand that means we can include React components." > src/pages/mdx.mdx
-  ```
-  Then restart the dev server AGAIN and you should be able to see it at [localhost:8000/mdx](http://localhost:8000/mdx).
+  we don't HAVE to add `gatsby-plugin-theme-ui` if we're mainly using it manually in components, but we can.
 
-### ADDING CONTENT FOLDERS AND TEST PAGES
+create a quick mdx page
 
-Frequently we will want to have some markdown (and sometimes mdx) content outside of the `src/pages` folder. Here are some steps and simple scripts to get this set up.
+```
+echo "# THIS IS MDX\nand that means we can include React components." > src/pages/20210203/mdx.mdx
+```
+Then restart the dev server AGAIN and you should be able to see it at [localhost:8000/mdx](http://localhost:8000/mdx).
 
-#### CREATE OR COPY CONTENT FOLDER
 
-- for this project the `content` folder has been copied in by the script
-- if you do move the `src/images` folder and the images in there, don't forget to ensure that there's a correct path to the icon image referenced in the `gatsby-config.js` file (either a new icon or the one gatsby provided, which has been moved):
+If we create a content folder, the icon is in a new place.
   ```
   icon: `content/images/gatsby-icon.png`,
   ```
 
-#### ADDING TO GATSBY-CONFIG.JS
+and then add as many gatsby-source-filesystem references as needed.
 
-- for each folder we add that contains a specific type of content that we want to NAME as a specific type of content (like if we want `posts` to be different from `documents` and receive a different default layout), we should add a reference to the `gatsby-source-filesystem` plugin that targets that particular folder. For the developing LL content folders, we're going with
-  ```
-  {
-    resolve: `gatsby-source-filesystem`,
-    options: {
-      name: `resources`,
-      path: `${__dirname}/content/resources`,
-    },
+```
+{
+  resolve: `gatsby-source-filesystem`,
+  options: {
+    name: `images`,
+    path: `${__dirname}/content/images`,
   },
-  {
-    resolve: `gatsby-source-filesystem`,
-    options: {
-      name: `shows`,
-      path: `${__dirname}/content/shows`,
-    },
-  },
-  {
-    resolve: `gatsby-source-filesystem`,
-    options: {
-      name: `llmdx`,
-      path: `${__dirname}/content/llmdx`,
-    },
-  },
-  {
-    resolve: `gatsby-source-filesystem`,
-    options: {
-      name: `images`,
-      path: `${__dirname}/content/images`,
-    },
-  },
-  {
-    resolve: `gatsby-source-filesystem`,
-    options: {
-      name: `glossary`,
-      path: `${__dirname}/content/glossary`,
-    },
-  },
-  ```
-- once you do this, you SHOULD be able to see all of your md or mdx files using the GraphiQL tool at [http://localhost:8000/\_\_\_graphql](http://localhost:8000/___graphql). If you are doing this for the first time, it pays to poke around a bit at this stage, creating some queries that help you try out various options for `allMarkdownRemark` and/or `allMdx` queries.
-- one quick note: if you have copied in any MDX files that are importing from packages you haven't yet installed, you'll need to install them. For today's project
-  ```
-  npm i theme-ui react-compare-image
-  ```
+},
+```
 
-#### ADD STATIC FOLDER
+let's add react-compare-image
 
-In general, we will use GraphQL to grab gatsby-processed content from our content folder, but from time to time we may need to use static assets (an initial use case we encountered involved `react-compare-image`). Let's prefix all of the folders we put in static with an `_` so that we don't run into naming collisions.
+```
+npm i react-compare-image
+```
+
+add static folder
 
 ```
 mkdir static static/_images
 curl -o static/_images/gatsby.jpg "https://i.guim.co.uk/img/media/cc5ff87a032ce6e4144e63a2a1cbe476dbc7cd5a/273_0_3253_1952/master/3253.jpg?width=620&quality=45&auto=format&fit=max&dpr=2&s=d8da5fd430d3983dc50543a44b3979d4"
 ```
+
+create the theme for theme-ui
+
+
 
 ### ADD MDX AND MD FILES AS PAGES (POSTPONED)
 
