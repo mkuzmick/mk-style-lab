@@ -33,16 +33,19 @@ const theLinks = [
 
 for (let i = 0; i < theLinks.length; i++) {
     if (i < (linkLocations.length)) {
-        theBoxes[linkLocations[i]]=<Link
-        to={theLinks[i].to}
-        sx={{
-            textDecoration: "none",
-            color: "#ddd"
-        }}
-        activeStyle={{fontWeight:"700"}}
-    >
+        theBoxes[linkLocations[i]]=<AniLink fade to={theLinks[i].to} >
         {theLinks[i].text}
-    </Link>
+    </AniLink>
+    // <Link
+    //     to={theLinks[i].to}
+    //     sx={{
+    //         textDecoration: "none",
+    //         color: "#ddd"
+    //     }}
+    //     activeStyle={{fontWeight:"700"}}
+    // >
+    //     {theLinks[i].text}
+    // </Link>
     }
     
     

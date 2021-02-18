@@ -1,5 +1,7 @@
 /** @jsx jsx */
 import { jsx, Box, Embed, ThemeProvider, Styled } from 'theme-ui'
+// import TransitionLink from "gatsby-plugin-transition-link"
+// import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 const theme = {
     colors: {
@@ -28,6 +30,7 @@ export default () => {
             <div>
                 the page
                 <Styled.h1>test</Styled.h1>
+                
             </div>
         </ThemeProvider>   
     )

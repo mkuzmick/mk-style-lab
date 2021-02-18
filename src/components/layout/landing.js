@@ -5,7 +5,7 @@ const LandingDiv = (props) => {
     return (
         <div
             sx={{
-                height:"115vh",
+                height:"100vh",
                 padding: "4em",
                 paddingBottom: "0"
             }}

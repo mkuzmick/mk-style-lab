@@ -16,6 +16,7 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-remark-images`,
+    // `gatsby-plugin-transition-link`,
     `gatsby-plugin-theme-ui`,
     {
       resolve: `gatsby-plugin-mdx`,
