@@ -8,6 +8,7 @@
     "@fontsource/abril-fatface": "^4.2.0",
     "@fontsource/chewy": "^4.2.1",
     "@fontsource/cormorant-garamond": "^4.2.0",
+    "@fontsource/lato": "^4.2.1",
     "@fontsource/libre-baskerville": "^4.2.0",
     "@fontsource/parisienne": "^4.2.0",
     "@mdx-js/mdx": "^1.6.22",
@@ -32,6 +33,7 @@
     "react-compare-image": "^3.1.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0",
+    "react-player": "^2.9.0",
     "theme-ui": "^0.3.5"
   },
   "devDependencies": {
